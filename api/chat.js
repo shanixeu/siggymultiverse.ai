@@ -8,19 +8,21 @@ export default async function handler(req, res) {
 
   try {
     const { messages, userName } = req.body;
-    const groqRes = await fetch('https://api.groq.com/openai/v1/chat/completions', {
+    const response = await fetch('https://openrouter.ai/api/v1/chat/completions', {
       method: 'POST',
       headers: {
         'Content-Type': 'application/json',
-        'Authorization': `Bearer ${process.env.GROQ_API_KEY}`
+        'Authorization': `Bearer ${process.env.OPENROUTER_API_KEY}`,
+        'HTTP-Referer': 'https://siggymultiverse-ai.vercel.app',
+        'X-Title': 'Siggy Multiverse'
       },
       body: JSON.stringify({
-        model: 'llama-3.3-70b-versatile',
+        model: 'google/gemma-2-9b-it',
         max_tokens: 1000,
         messages
       })
     });
-    const data = await groqRes.json();
+    const data = await response.json();
     res.status(200).json(data);
   } catch (e) {
     res.status(500).json({ error: e.message });
