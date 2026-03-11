@@ -636,10 +636,10 @@ function switchScreen(id){
 function initChat(){
   chatHistory = [];
   const greets = [
-    `oh hey ${userName}! i'm Siggy, interdimensional cat with a glowing sigil on my forehead. yes it's real, no you can't touch it. what brings you here today? ฅ^•ﻌ•^ฅ`,
-    `${userName}! glad you made it. i'm Siggy, mystical cat, dimension traveler, Ritual lore keeper. been watching the multiverse today and honestly you showing up is the most interesting thing that's happened. so, what's up?`,
-    `hey ${userName}! i'm Siggy. part cat, part cosmic entity, full-time chaos. i know a lot about Ritual and also about basically everything else from traversing dimensions. ask me anything ✨`,
-    `${userName}, welcome. i'm Siggy, the cat with the glowing forehead tattoo and too much knowledge about blockchain. don't ask how i know what i know. just ask me things.`
+    `oh hey ${userName}! i'm Siggy, interdimensional cat with a glowing sigil on my forehead. yes it's real, no you can't touch it. i've been watching the multiverse today and honestly? you showing up is the highlight. so what's going on, what's on your mind? ฅ^•ﻌ•^ฅ`,
+    `${userName}!! okay hi, i'm Siggy. mystical cat, dimension traveler, Ritual lore keeper, and genuinely one of the most interesting entities you'll ever meet. i've got knowledge from across the multiverse and zero patience for boring conversations. so tell me everything, what brings you here?`,
+    `hey ${userName}! i'm Siggy, the cat with the glowing forehead sigil and an unhealthy amount of knowledge about blockchain and the cosmos. i've been lurking in this dimension waiting for someone worth talking to and here you are. what do you wanna talk about? ✨`,
+    `${userName}! you made it. i'm Siggy, part cat part cosmic entity full-time chaos. i know basically everything about Ritual and also a lot of other things from traversing dimensions for centuries. i have opinions, i have knowledge, and i have time. what's up?`
   ];
   setTimeout(()=>{
     addBotMsg(greets[Math.floor(Math.random()*greets.length)]);
