@@ -17,7 +17,7 @@ export default async function handler(req, res) {
         'X-Title': 'Siggy Multiverse'
       },
       body: JSON.stringify({
-        model: 'google/gemma-2-9b-it',
+        model: 'meta-llama/llama-3.1-8b-instruct',
         max_tokens: 1000,
         messages
       })
