@@ -747,15 +747,10 @@ async function sendMsg(){
   chatHistory.push({role:'user', content:text});
   document.getElementById('send-btn').disabled = true;
   try{
-    const res = await fetch('https://api.groq.com/openai/v1/chat/completions',{
+    const res = await fetch('/api/chat',{
       method:'POST',
-      headers:{
-        'Content-Type':'application/json',
-        'Authorization': 'Bearer ' + API_KEY
-      },
+      headers:{'Content-Type':'application/json'},
       body:JSON.stringify({
-        model:'llama-3.3-70b-versatile',
-        max_tokens:1000,
         messages: [
           {role:'system', content: SIGGY_SYSTEM + `\n\nThe user's nickname is "${userName}".`},
           ...chatHistory.slice(-24)
