@@ -494,8 +494,8 @@ COMMUNITY TEAM:
 - @Kash_060: event manager, always making things happen`;
 
 // ── API KEY ─────────────────────────────────────────────────────
-// Replace with your Anthropic API key
-const API_KEY = 'YOUR_API_KEY_HERE';
+// Replace with your Groq API key (get it from console.groq.com)
+const API_KEY = 'YOUR_GROQ_API_KEY_HERE';
 
 // ── STATE ───────────────────────────────────────────────────────
 let patCount = 0;
@@ -747,19 +747,19 @@ async function sendMsg(){
   chatHistory.push({role:'user', content:text});
   document.getElementById('send-btn').disabled = true;
   try{
-    const res = await fetch('https://api.anthropic.com/v1/messages',{
+    const res = await fetch('https://api.groq.com/openai/v1/chat/completions',{
       method:'POST',
       headers:{
         'Content-Type':'application/json',
-        'x-api-key': API_KEY,
-        'anthropic-version': '2023-06-01',
-        'anthropic-dangerous-direct-browser-calls': 'true'
+        'Authorization': 'Bearer ' + API_KEY
       },
       body:JSON.stringify({
-        model:'claude-sonnet-4-20250514',
+        model:'llama-3.3-70b-versatile',
         max_tokens:1000,
-        system: SIGGY_SYSTEM + `\n\nThe user's nickname is "${userName}".`,
-        messages: chatHistory.slice(-24)
+        messages: [
+          {role:'system', content: SIGGY_SYSTEM + `\n\nThe user's nickname is "${userName}".`},
+          ...chatHistory.slice(-24)
+        ]
       })
     });
     const data = await res.json();
@@ -769,7 +769,7 @@ async function sendMsg(){
       document.getElementById('send-btn').disabled = false;
       return;
     }
-    const reply = data.content?.map(b=>b.text||'').join('') || '[mood:annoyed] hm. the void returned nothing. try again~';
+    const reply = data.choices?.[0]?.message?.content || '[mood:annoyed] hm. the void returned nothing. try again~';
     chatHistory.push({role:'assistant', content:reply});
     addBotMsg(reply);
   }catch(e){
