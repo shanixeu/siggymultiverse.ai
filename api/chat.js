@@ -18,9 +18,10 @@ export default {
 
       const response = await fetch('https://openrouter.ai/api/v1/chat/completions', {
         method: 'POST',
-        headers: {
-          'Content-Type': 'application/json',
-          'Authorization': `Bearer ${env.OPENROUTER_API_KEY}`
+headers: {
+  'Content-Type': 'application/json',
+  'Authorization': `Bearer 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`
+}
         },
         body: JSON.stringify({
           model: 'meta-llama/llama-3.1-8b-instruct:free',
