@@ -10,52 +10,14 @@ export default {
         }
       });
     }
-
     try {
-      console.log('API KEY:', env.OPENROUTER_API_KEY ? 'ADA' : 'KOSONG');
+      const apiKey = process.env.OPENROUTER_API_KEY || env.OPENROUTER_API_KEY;
+      console.log('API KEY:', apiKey ? 'ADA' : 'KOSONG');
       
       const body = await request.json();
-
       const response = await fetch('https://openrouter.ai/api/v1/chat/completions', {
         method: 'POST',
-headers: {
-  'Content-Type': 'application/json',
-  'Authorization': `Bearer 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`
-}
-        },
-        body: JSON.stringify({
-          model: 'meta-llama/llama-3.1-8b-instruct:free',
-          messages: [
-            { role: 'system', content: body.system || '' },
-            ...body.messages
-          ],
-          max_tokens: 350
-        })
-      });
-
-      const data = await response.json();
-      console.log('OpenRouter:', JSON.stringify(data));
-
-      const text = data.choices?.[0]?.message?.content || 'error: ' + JSON.stringify(data.error);
-
-      return new Response(JSON.stringify({
-        content: [{ type: 'text', text }]
-      }), {
         headers: {
           'Content-Type': 'application/json',
-          'Access-Control-Allow-Origin': '*'
-        }
-      });
-
-    } catch(e) {
-      return new Response(JSON.stringify({
-        content: [{ type: 'text', text: 'Worker error: ' + e.message }]
-      }), {
-        headers: {
-          'Content-Type': 'application/json',
-          'Access-Control-Allow-Origin': '*'
-        }
-      });
-    }
-  }
-};
+          'Authorization': `Bearer ${apiKey}`,
+          'HTT
