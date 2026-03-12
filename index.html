@@ -526,8 +526,9 @@ COMMUNITY ROLES (lowest to highest):
 - @Forerunner: OGs from before Ritual launched`;
 
 // ── API KEY ─────────────────────────────────────────────────────
-// Replace with your Groq API key (get it from console.groq.com)
-const API_KEY = 'YOUR_GROQ_API_KEY_HERE';
+// Replace with your OpenRouter API key (get it from openrouter.ai/keys)
+const API_KEY = 'YOUR_OPENROUTER_API_KEY_HERE';
+const MODEL = 'meta-llama/llama-3.3-70b-instruct'; // ganti model sesuai pilihan
 
 // ── STATE ───────────────────────────────────────────────────────
 let patCount = 0;
@@ -779,10 +780,16 @@ async function sendMsg(){
   chatHistory.push({role:'user', content:text});
   document.getElementById('send-btn').disabled = true;
   try{
-    const res = await fetch('/api/chat',{
+    const res = await fetch('https://openrouter.ai/api/v1/chat/completions',{
       method:'POST',
-      headers:{'Content-Type':'application/json'},
+      headers:{
+        'Content-Type':'application/json',
+        'Authorization': `Bearer ${API_KEY}`,
+        'HTTP-Referer': window.location.href,
+        'X-Title': 'Siggy Soul Forge'
+      },
       body:JSON.stringify({
+        model: MODEL,
         messages: [
           {role:'system', content: SIGGY_SYSTEM + `\n\nThe user's nickname is "${userName}".`},
           ...chatHistory.slice(-24)
