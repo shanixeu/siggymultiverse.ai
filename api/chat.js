@@ -23,7 +23,7 @@ export default {
           'Authorization': `Bearer ${env.OPENROUTER_API_KEY}`
         },
         body: JSON.stringify({
-          model: 'arcee-ai/arcee-trinity:free',
+          model: 'meta-llama/llama-3.1-8b-instruct:free',
           messages: [
             { role: 'system', content: body.system || '' },
             ...body.messages
