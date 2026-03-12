@@ -8,20 +8,19 @@ export default async function handler(req, res) {
 
   try {
     const { messages, userName } = req.body;
-    const response = await fetch('https://openrouter.ai/api/v1/chat/completions', {
+    const response = await fetch('https://dashscope.aliyuncs.com/compatible-mode/v1/chat/completions', {
       method: 'POST',
       headers: {
         'Content-Type': 'application/json',
-        'Authorization': `Bearer ${process.env.OPENROUTER_API_KEY}`,
-        'HTTP-Referer': 'https://siggymultiverse-ai.vercel.app',
-        'X-Title': 'Siggy Multiverse'
+        'Authorization': `Bearer ${process.env.DASHSCOPE_API_KEY}`,
       },
       body: JSON.stringify({
-        model: 'anthropic/claude-haiku-4-5',
+        model: 'qwen-plus',
         max_tokens: 1000,
         messages
       })
     });
+
     const data = await response.json();
     res.status(200).json(data);
   } catch (e) {
